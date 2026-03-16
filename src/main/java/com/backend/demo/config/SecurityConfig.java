@@ -13,9 +13,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Вимикаємо захист CSRF (для API він не потрібен і заважає POST-запитам)
                 .csrf(csrf -> csrf.disable())
-                // Дозволяємо всі запити без авторизації
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 );
