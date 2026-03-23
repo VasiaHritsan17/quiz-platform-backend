@@ -18,12 +18,12 @@ public class TestService {
         return testRepository.save(test);
     }
 
-    public List<Test> getAllTests() {
-        return testRepository.findAll();
+    public Test getTestById(Long id) {
+        return testRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Тест з таким  id не знайдено!"));
     }
 
-    public Test getTestById(Long id) {
-        return testRepository.findById(id).
-        orElseThrow(() -> new RuntimeException("Тест з ID " + id + " не знайдено!"));
+    public List<Test> getAllTests() {
+        return testRepository.findAll();
     }
 }

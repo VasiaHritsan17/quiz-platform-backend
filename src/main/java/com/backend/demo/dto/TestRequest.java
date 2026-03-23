@@ -8,4 +8,5 @@ import lombok.Setter;
 public class TestRequest {
     private String title;
     private String description;
+    private Long creatorId;
 }
