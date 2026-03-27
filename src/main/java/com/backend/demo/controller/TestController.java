@@ -37,4 +37,8 @@ public class TestController {
         return testService.createTest(test);
     }
 
+    @GetMapping("/{id}")
+    public Test getTest(@PathVariable Long id) {
+      return testService.getTestById(id);
+    }
 }

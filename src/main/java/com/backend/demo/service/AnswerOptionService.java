@@ -16,4 +16,9 @@ public class AnswerOptionService {
     public AnswerOption createAnswerOption(AnswerOption answerOption) {
         return answerOptionRepository.save(answerOption);
     }
+
+    public AnswerOption getOptionById(Long id) {
+        return answerOptionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Варіант відповіді не знайдено"));
+    }
 }

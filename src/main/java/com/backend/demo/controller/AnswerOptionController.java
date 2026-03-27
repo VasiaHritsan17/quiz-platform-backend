@@ -24,7 +24,7 @@ public class AnswerOptionController {
 
         AnswerOption answerOption = new AnswerOption();
         answerOption.setText(request.getText());
-        answerOption.setCorrect(request.isCorrect());
+        answerOption.setIsCorrect(request.isCorrect());
         answerOption.setQuestion(question);
 
         return answerOptionService.createAnswerOption(answerOption);
