@@ -5,6 +5,8 @@ import com.backend.demo.entity.TestAttempt;
 import com.backend.demo.service.TestAttemptService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/attempts")
 public class TestAttemptController {
@@ -23,5 +25,10 @@ public class TestAttemptController {
     @PostMapping("/{id}/finish")
     public TestAttempt finistTestAttempt(@PathVariable Long id) {
         return testAttemptService.finishAttempt(id);
+    }
+
+    @GetMapping("/test/{testId}")
+    public List<TestAttempt> getAttemptByTest(@PathVariable Long testId) {
+        return testAttemptService.getAttemptByTestId(testId);
     }
 }

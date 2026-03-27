@@ -1,5 +1,6 @@
 package com.backend.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class TestAttempt {
 
     @ManyToOne
     @JoinColumn(name = "test_id", nullable = false)
+    @JsonIgnore
     private Test test;
 
     @Column(name = "start_time", nullable = false)

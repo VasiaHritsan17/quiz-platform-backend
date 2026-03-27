@@ -62,4 +62,8 @@ public class TestAttemptService {
 
         return testAttemptRepository.save(attempt);
     }
+
+    public List<TestAttempt> getAttemptByTestId(Long testId) {
+        return testAttemptRepository.findByTestId(testId);
+    }
 }
