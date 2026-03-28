@@ -31,4 +31,9 @@ public class TestAttemptController {
     public List<TestAttempt> getAttemptByTest(@PathVariable Long testId) {
         return testAttemptService.getAttemptByTestId(testId);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<TestAttempt> getAttemptByStudentId(@PathVariable Long studentId) {
+        return testAttemptService.getAttemptByStudentId(studentId);
+    }
 }

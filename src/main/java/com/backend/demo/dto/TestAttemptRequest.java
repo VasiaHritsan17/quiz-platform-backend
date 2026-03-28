@@ -1,11 +1,25 @@
 package com.backend.demo.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class TestAttemptRequest {
-    private Long StudentId;
-    private Long TestId;
+    private Long studentId;
+    private Long testId;
+
+    // Геттери
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public Long getTestId() {
+        return testId;
+    }
+
+    // Сеттери (саме завдяки їм Spring зможе прочитати JSON)
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setTestId(Long testId) {
+        this.testId = testId;
+    }
 }

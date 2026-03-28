@@ -30,13 +30,13 @@ public class TestAttemptService {
 
     public TestAttempt startAttempt(Long StudentId, Long TestId) {
         User student = userService.getUserById(StudentId);
-
         Test test = testService.getTestById(TestId);
 
         TestAttempt attempt = new TestAttempt();
         attempt.setStudent(student);
         attempt.setTest(test);
         attempt.setScore(0);
+        attempt.setStartTime(java.time.LocalDateTime.now());
 
         return testAttemptRepository.save(attempt);
     }
@@ -58,12 +58,19 @@ public class TestAttemptService {
             }
         }
 
+        attempt.setEndTime(java.time.LocalDateTime.now());
+        attempt.setIsCompleted(true);
         attempt.setScore(score);
+
 
         return testAttemptRepository.save(attempt);
     }
 
     public List<TestAttempt> getAttemptByTestId(Long testId) {
         return testAttemptRepository.findByTestId(testId);
+    }
+
+    public List<TestAttempt> getAttemptByStudentId(Long studentId) {
+        return testAttemptRepository.findByStudentId(studentId);
     }
 }
