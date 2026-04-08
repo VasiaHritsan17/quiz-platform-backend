@@ -18,12 +18,12 @@ public class TestAttemptController {
     }
 
     @PostMapping("/start")
-    public TestAttempt StartTestAttempt(@RequestBody TestAttemptRequest request) {
+    public TestAttempt startTestAttempt(@RequestBody TestAttemptRequest request) {
         return testAttemptService.startAttempt(request.getStudentId(), request.getTestId());
     }
 
     @PostMapping("/{id}/finish")
-    public TestAttempt finistTestAttempt(@PathVariable Long id) {
+    public TestAttempt finishTestAttempt(@PathVariable Long id) {
         return testAttemptService.finishAttempt(id);
     }
 
@@ -32,7 +32,7 @@ public class TestAttemptController {
         return testAttemptService.getAttemptByTestId(testId);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user/{studentId}")
     public List<TestAttempt> getAttemptByStudentId(@PathVariable Long studentId) {
         return testAttemptService.getAttemptByStudentId(studentId);
     }
