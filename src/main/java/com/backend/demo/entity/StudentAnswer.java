@@ -28,4 +28,7 @@ public class StudentAnswer {
 
     @Column(name = "entered_text", columnDefinition = "TEXT")
     private String enteredText;
+
+    @Column(name = "is_correct")
+    private Boolean isCorrect;
 }

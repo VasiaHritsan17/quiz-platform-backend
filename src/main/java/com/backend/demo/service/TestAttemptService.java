@@ -46,6 +46,10 @@ public class TestAttemptService {
                 .orElseThrow(() -> new RuntimeException("Спробу не знайдено"));
     }
 
+    public TestAttempt saveAttempt(TestAttempt attempt) {
+        return testAttemptRepository.save(attempt);
+    }
+
     public TestAttempt finishAttempt(Long attemptId) {
         TestAttempt attempt = getAttemptById(attemptId);
 
@@ -53,7 +57,7 @@ public class TestAttemptService {
         int score = 0;
 
         for (StudentAnswer answer : answers) {
-            if (answer.getSelectedOption().getIsCorrect()) {
+            if (Boolean.TRUE.equals(answer.getIsCorrect())) {
                 score++;
             }
         }
