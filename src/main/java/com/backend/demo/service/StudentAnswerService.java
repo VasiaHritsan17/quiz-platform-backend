@@ -5,6 +5,9 @@ import com.backend.demo.repository.StudentAnswerRepository;
 import org.springframework.stereotype.Service;
 import com.backend.demo.dto.StudentAnswerRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class StudentAnswerService {
 
@@ -23,25 +26,49 @@ public class StudentAnswerService {
         this.optionService = optionService;
     }
 
-    public StudentAnswer saveAnswer(StudentAnswerRequest request) {
+    public List<StudentAnswer> saveAnswer(StudentAnswerRequest request) {
         TestAttempt attempt = attemptService.getAttemptById(request.getAttemptId());
         Question question = questionService.getQuestionById(request.getQuestionId());
 
-        StudentAnswer answer = new StudentAnswer();
-        answer.setTestAttempt(attempt);
-        answer.setQuestion(question);
-        
-        if (request.getSelectedOptionId() != null) {
-            AnswerOption selectedOption = optionService.getOptionById(request.getSelectedOptionId());
-            answer.setSelectedOption(selectedOption);
-            answer.setIsCorrect(selectedOption.getIsCorrect());
-        }
-        
-        if (request.getEnteredText() != null) {
-            answer.setEnteredText(request.getEnteredText());
+        List<StudentAnswer> savedAnswers = new ArrayList<>();
+
+        // Видаляємо попередні відповіді на це питання для цієї спроби
+        List<StudentAnswer> existing = studentAnswerRepository.findByTestAttemptIdAndQuestionId(
+                request.getAttemptId(), request.getQuestionId());
+        if (!existing.isEmpty()) {
+            studentAnswerRepository.deleteAll(existing);
         }
 
-        return studentAnswerRepository.save(answer);
+        if (request.getSelectedOptionIds() != null && !request.getSelectedOptionIds().isEmpty()) {
+            // MULTIPLE_CHOICE або SINGLE_CHOICE — зберігаємо всі обрані варіанти
+            for (Long optionId : request.getSelectedOptionIds()) {
+                AnswerOption selectedOption = optionService.getOptionById(optionId);
+                StudentAnswer answer = new StudentAnswer();
+                answer.setTestAttempt(attempt);
+                answer.setQuestion(question);
+                answer.setSelectedOption(selectedOption);
+                answer.setIsCorrect(selectedOption.getIsCorrect());
+                savedAnswers.add(studentAnswerRepository.save(answer));
+            }
+        } else if (request.getSelectedOptionId() != null) {
+            // Зворотна сумісність: один обраний варіант
+            AnswerOption selectedOption = optionService.getOptionById(request.getSelectedOptionId());
+            StudentAnswer answer = new StudentAnswer();
+            answer.setTestAttempt(attempt);
+            answer.setQuestion(question);
+            answer.setSelectedOption(selectedOption);
+            answer.setIsCorrect(selectedOption.getIsCorrect());
+            savedAnswers.add(studentAnswerRepository.save(answer));
+        } else if (request.getEnteredText() != null) {
+            // Текстова відповідь
+            StudentAnswer answer = new StudentAnswer();
+            answer.setTestAttempt(attempt);
+            answer.setQuestion(question);
+            answer.setEnteredText(request.getEnteredText());
+            savedAnswers.add(studentAnswerRepository.save(answer));
+        }
+
+        return savedAnswers;
     }
 
     public java.util.List<StudentAnswer> getAnswersByAttempt(Long attemptId) {

@@ -34,4 +34,7 @@ public class TestAttempt {
 
     @Column(name = "is_completed", nullable = false)
     private Boolean isCompleted = false;
+
+    @OneToMany(mappedBy = "testAttempt", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<StudentAnswer> studentAnswers;
 }

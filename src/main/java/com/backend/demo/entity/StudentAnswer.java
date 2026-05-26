@@ -1,5 +1,6 @@
 package com.backend.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class StudentAnswer {
 
     @ManyToOne
     @JoinColumn(name = "attempt_id", nullable = false)
+    @JsonIgnore
     private TestAttempt testAttempt;
 
     @ManyToOne

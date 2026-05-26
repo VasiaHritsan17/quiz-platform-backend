@@ -8,5 +8,7 @@ import lombok.Setter;
 public class TestRequest {
     private String title;
     private String description;
+    private Integer timeLimitMinutes;
+    private Integer maxAttempts;
     private Long creatorId;
 }

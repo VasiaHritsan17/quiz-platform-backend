@@ -2,7 +2,7 @@ package com.backend.demo.controller;
 
 import com.backend.demo.dto.QuestionRequest;
 import com.backend.demo.entity.Question;
-import com.backend.demo.entity.QuestionType; // Твій Enum
+import com.backend.demo.entity.QuestionType;
 import com.backend.demo.entity.Test;
 import com.backend.demo.service.QuestionService;
 import com.backend.demo.service.TestService;

@@ -5,6 +5,8 @@ import com.backend.demo.entity.StudentAnswer;
 import com.backend.demo.service.StudentAnswerService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/student-answers")
 public class StudentAnswerController {
@@ -16,12 +18,12 @@ public class StudentAnswerController {
     }
 
     @PostMapping
-    public StudentAnswer SaveAnswer(@RequestBody StudentAnswerRequest request) {
+    public List<StudentAnswer> SaveAnswer(@RequestBody StudentAnswerRequest request) {
         return studentAnswerService.saveAnswer(request);
     }
 
     @GetMapping("/attempt/{attemptId}")
-    public java.util.List<StudentAnswer> getAnswersByAttempt(@PathVariable Long attemptId) {
+    public List<StudentAnswer> getAnswersByAttempt(@PathVariable Long attemptId) {
         return studentAnswerService.getAnswersByAttempt(attemptId);
     }
 

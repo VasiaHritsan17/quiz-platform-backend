@@ -5,7 +5,6 @@ public class TestAttemptRequest {
     private Long studentId;
     private Long testId;
 
-    // Геттери
     public Long getStudentId() {
         return studentId;
     }
@@ -14,7 +13,6 @@ public class TestAttemptRequest {
         return testId;
     }
 
-    // Сеттери (саме завдяки їм Spring зможе прочитати JSON)
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }

@@ -31,14 +31,37 @@ public class TestController {
         Test test = new Test();
         test.setTitle(request.getTitle());
         test.setDescription(request.getDescription());
-
+        test.setTimeLimitMinutes(request.getTimeLimitMinutes());
+        test.setMaxAttempts(request.getMaxAttempts());
         test.setCreator(creator);
 
         return testService.createTest(test);
     }
 
+    @GetMapping
+    public List<Test> getAllTests() {
+        return testService.getAllTests();
+    }
+
+    @GetMapping("/creator/{creatorId}")
+    public List<Test> getTestsByCreator(@PathVariable Long creatorId) {
+        return testService.getTestsByCreator(creatorId);
+    }
+
     @GetMapping("/{id}")
     public Test getTest(@PathVariable Long id) {
       return testService.getTestById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTest(@PathVariable Long id) {
+        testService.deleteTest(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAllTests() {
+        testService.deleteAllTests();
+        return ResponseEntity.noContent().build();
     }
 }
